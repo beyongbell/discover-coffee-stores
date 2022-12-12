@@ -27,9 +27,10 @@ export default function Home() {
           {coffeeStores.map((coffeeStore) => {
             return (
               <Card
+                key={coffeeStore.id}
                 name={coffeeStore.name}
-                imgUrl="/static/hero-image.png"
-                href="/coffee-store/darkhose-coffee"
+                imgUrl={coffeeStore.imgUrl}
+                href={`/coffee-store/${coffeeStore.id}`}
                 className={styles.card}
               />
             );

@@ -1,19 +1,36 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-    render() {
-        return <Html lang="en">
-            <Head>
-                <link rel="preload" href="/fonts/IBM_Plex_Sans/IBMPlexSans-Bold.ttf" as="font" crossOrigin="anonymous" />
-                <link rel="preload" href="/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf" as="font" crossOrigin="anonymous" />
-                <link rel="preload" href="/fonts/IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf" as="font" crossOrigin="anonymous" />
-            </Head>
-            <body>
-                <Main></Main>
-                <NextScript />
-            </body>
-        </Html>
-    }
-} 
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <link
+            rel="preload"
+            href="/fonts/IBM_Plex_Sans/IBMPlexSans-Bold.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          ></link>
+          <link
+            rel="preload"
+            href="/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          ></link>
+          <link
+            rel="preload"
+            href="/fonts/IBM_Plex_Sans/IBMPlexSans-SemiBold.ttf"
+            as="font"
+            crossOrigin="anonymous"
+          ></link>
+        </Head>
+        <body>
+          <Main></Main>
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
 
 export default MyDocument;

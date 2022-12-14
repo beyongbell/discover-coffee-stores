@@ -7,7 +7,15 @@ import Card from '@/components/card';
 
 import coffeeStores from "../data/coffee-stores.json";
 
-export default function Home() {
+export async function getStaticProps(context) {
+  return {
+    props: {
+      coffeeStores,
+    },
+  };
+}
+
+export default function Home(props) {
   const handleOnBannerButtonClick = () => {
     console.log('Banner button clicked!');
   }

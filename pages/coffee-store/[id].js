@@ -18,7 +18,7 @@ export async function getStaticProps(staticProps) {
   return {
     props: {
       coffeeStore: coffeeStores.find((coffeeStore) => {
-        return coffeeStore.fsq_id.toString() === params.id; //dynamic id
+        return coffeeStore.id.toString() === params.id; //dynamic id
       }),
     },
   };
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
   const paths = coffeeStores.map((coffeeStore) => {
     return {
       params: {
-        id: coffeeStore.fsq_id.toString(),
+        id: coffeeStore.id.toString(),
       },
     };
   });
@@ -46,7 +46,7 @@ const CoffeeStore = (props) => {
     return <div>Loading...</div>;
   }
 
-  const { location, name, imgUrl } = props.coffeeStore;
+  const { name, address, neighbourhood, imgUrl } = props.coffeeStore;
 
   const handleUpvoteButton = () => {
     console.log("Upvoted!");
@@ -61,7 +61,7 @@ const CoffeeStore = (props) => {
         <div className={styles.col1}>
           <div className={styles.backToHomeLink}>
             <Link href="/">
-              Back to home
+             ← Back to home
             </Link>
           </div>
           <div className={styles.nameWrapper}>
@@ -76,16 +76,16 @@ const CoffeeStore = (props) => {
           />
         </div>
         <div className={cls("glass", styles.col2)}>
-          {location.address && (
+          {address && (
             <div className={styles.iconWrapper}>
               <Image src="/static/icons/places.svg" width="24" height="24" />
-              <p className={styles.text}>{location.address}</p>
+              <p className={styles.text}>{address}</p>
             </div>
           )}
-          {location.neighborhood && (
+          {neighbourhood && (
             <div className={styles.iconWrapper}>
               <Image src="/static/icons/nearMe.svg" width="24" height="24" />
-              <p className={styles.text}>{location.neighborhood}</p>
+              <p className={styles.text}>{neighbourhood}</p>
             </div>
           )}
           <div className={styles.iconWrapper}>

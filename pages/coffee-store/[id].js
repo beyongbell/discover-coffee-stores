@@ -14,12 +14,12 @@ export async function getStaticProps(staticProps) {
   const params = staticProps.params;
   
   const coffeeStores = await fetchCoffeeStores();
-
+  const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
+    return coffeeStore.id.toString() === params.id; //dynamic id
+  });
   return {
     props: {
-      coffeeStore: coffeeStores.find((coffeeStore) => {
-        return coffeeStore.id.toString() === params.id; //dynamic id
-      }),
+      coffeeStore: findCoffeeStoreById ? findCoffeeStoreById : {},
     },
   };
 }

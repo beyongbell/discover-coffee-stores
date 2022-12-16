@@ -34,7 +34,6 @@ export default function Home(props) {
           console.log({ fetchedCoffeeStores });
           setCoffeeStores(fetchedCoffeeStores);
         } catch (error) {
-          //set error
           console.log({ error });
           setCoffeeStoresError(error.message);
         }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -22,7 +23,25 @@ export async function getStaticProps(context) {
 export default function Home(props) {
   const { handleTrackLocation, latLong, locationErrorMsg, isFindingLocation } = useTrackLocation();
 
-  console.log({ latLong, locationErrorMsg });
+  const [coffeeStores, setCoffeeStores] = useState("");
+  const [coffeeStoresError, setCoffeeStoresError] = useState(null);
+
+  useEffect(() => {
+    async function setCoffeeStoresByLocation() {
+      if (latLong) {
+        try {
+          const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 30);
+          console.log({ fetchedCoffeeStores });
+          setCoffeeStores(fetchedCoffeeStores);
+        } catch (error) {
+          //set error
+          console.log({ error });
+          setCoffeeStoresError(error.message);
+        }
+      }
+    }
+    setCoffeeStoresByLocation();
+  }, [latLong]);
 
   const handleOnBannerButtonClick = () => {
     console.log('Banner button clicked!');
@@ -40,16 +59,16 @@ export default function Home(props) {
           buttonText={isFindingLocation ? "Locating..." : "View stores nearby"} 
           handleOnClick={handleOnBannerButtonClick} 
         />
-        {locationErrorMsg && <p>Something went wrong: {locationErrorMsg}</p>}
+       {coffeeStoresError && <p>Something went wrong: {coffeeStoresError}</p>}
         <div className={styles.heroImage}>
           <Image src="/static/hero-image.png" width={700} height={400} alt="Hero Image" />
         </div>
         <div className={styles.sectionWrapper}>
-          {props.coffeeStores.length > 0 && (
-            <>
-              <h2 className={styles.heading2}>Toronto stores</h2>
+          {coffeeStores.length > 0 && (
+            <div className={styles.sectionWrapper}>
+              <h2 className={styles.heading2}>Stores near me</h2>
               <div className={styles.cardLayout}>
-                {props.coffeeStores.map((coffeeStore) => {
+                {coffeeStores.map((coffeeStore) => {
                   return (
                     <Card
                       key={coffeeStore.id}
@@ -64,7 +83,7 @@ export default function Home(props) {
                   );
                 })}
               </div>
-            </>
+            </div>
           )}
         </div>
       </main>

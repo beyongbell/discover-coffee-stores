@@ -1,6 +1,8 @@
 import { createContext, useReducer } from 'react';
 import '../styles/globals.css'
 
+import StoreProvider from "../store/store-context";
+
 export const StoreContext = createContext();
 
 export const ACTION_TYPES = {
@@ -20,20 +22,8 @@ const storeReducer = (state, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
-
-const StoreProvider = ({ children }) => {
-  const initialState = {
-    latLong: "",
-    coffeeStores: [],
-  };
-  const [state, dispatch] = useReducer(storeReducer, initialState);
-  return (
-    <StoreContext.Provider value={{ state, dispatch }}>
-      {children}
-    </StoreContext.Provider>
-  );
-};
-
+import { ACTION_TYPES, StoreContext } from "../store/store-context";
+  4 | 
 function MyApp({ Component, pageProps }) {
   return (
     <StoreProvider>
